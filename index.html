@@ -31,7 +31,7 @@ light.position.set(0, 20, 0);
 scene.add(light);
 
 const loader = new GLTFLoader();
-loader.load('model.glb', function(gltf) {
+loader.load('./model.glb', function(gltf) {
     scene.add(gltf.scene);
 }, undefined, function(error) {
     console.error(error);
