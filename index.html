@@ -51,12 +51,22 @@ loader.load(
   "./model.glb",
   function (gltf) {
     model = gltf.scene;
+
+    // Auto center the model
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+
+    model.position.sub(center); // center it
+
+    // Auto scale model
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = 2 / maxDim;
+    model.scale.set(scale, scale, scale);
+
     scene.add(model);
   },
-  undefined,
-  function (error) {
-    console.error("Error loading model:", error);
-  }
+
 );
 
 function animate() {
